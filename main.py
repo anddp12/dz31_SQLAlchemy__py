@@ -27,3 +27,15 @@ class Faculties(Base):
 
     def __repr__(self) -> str:
         return f"Faculties(id={self.id!r}, name={self.name!r}, dean={self.dean!r})"
+
+
+class Groups(Base):
+    __tablename__ = "Groups"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(unique=True)
+    year: Mapped[int] = mapped_column()
+    rating: Mapped[int] = mapped_column()
+
+    def __repr__(self) -> str:
+        return f"Groups#(id={self.id!r}, name={self.name!r}, rating={self.rating!r}, rating={self.year!r})"
