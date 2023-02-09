@@ -108,3 +108,22 @@ with Session(engine) as session:
 
 session.add_all([group1, group2, group3, group4, group5, group6, group7, group8, group9, group10])
 session.commit()
+
+
+# Filling the tables of Teachers
+with Session(engine) as session:
+    teacher1 = Teachers(first_name="Alexander", last_name="Svatok", position="Assistant", employmentDate="2013-03-18", salary=7500.0, premium=435.0, isAssistant=1, isProfessor=0)
+    teacher2 = Teachers(first_name="Eugene", last_name="Cheberyachko", position="Docent", employmentDate="2012-09-31", salary=11500.0, premium=1205.0, isAssistant=0, isProfessor=0)
+    teacher3 = Teachers(first_name="Artem", last_name="Fedetskyi", position="Professor", employmentDate="2010-07-21", salary=13500.0, premium=935.0, isAssistant=0, isProfessor=1)
+    teacher4 = Teachers(first_name="Dmitry", last_name="Chygrinsky", position="Docent", employmentDate="2011-05-28", salary=11500.0, premium=868.0, isAssistant=0, isProfessor=0)
+    teacher5 = Teachers(first_name="Nikolai", last_name="Kalynych", position="Docent", employmentDate="2014-07-11", salary=11500.0, premium=1195.0, isAssistant=0, isProfessor=0)
+    teacher6 = Teachers(first_name="Yevgeny", last_name="Konoplyanka", position="Senior teacher", employmentDate="2011-02-12", salary=9500.0, premium=842.0, isAssistant=0, isProfessor=0)
+    teacher7 = Teachers(first_name="Yevgeny", last_name="Selezgnev", position="Professor", employmentDate="2012-11-02", salary=13500.0, premium=632.0, isAssistant=0, isProfessor=1)
+    teacher8 = Teachers(first_name="Igor", last_name="Vartsaba", position="Assistant", employmentDate="2020-09-14", salary=8000.0, premium=789.0, isAssistant=1, isProfessor=0)
+    teacher9 = Teachers(first_name="Roman", last_name="Zozulya", position="Professor", employmentDate="2010-03-07", salary=13500.0, premium=1185.0, isAssistant=0, isProfessor=1)
+    teacher10 = Teachers(first_name="Roman", last_name="Bezus", position="Senior teacher", employmentDate="2013-10-15", salary=9500.0, premium=1365.0, isAssistant=0, isProfessor=0)
+    teacher11 = Teachers(first_name="Yevgeny", last_name="Shakhov", position="Assistant", employmentDate="2020-05-16", salary=8500.0, premium=1035.0, isAssistant=1, isProfessor=0)
+    teacher12 = Teachers(first_name="Denis", last_name="Boyko", position="Senior teacher", employmentDate="2013-08-23", salary=9500.0, premium=895.0, isAssistant=0, isProfessor=0)
+
+session.add_all([teacher1, teacher2, teacher3, teacher4, teacher5, teacher6, teacher7, teacher8, teacher9, teacher10, teacher11, teacher12])
+session.commit()
