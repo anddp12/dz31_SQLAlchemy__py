@@ -2,6 +2,7 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 
 
 class Base(DeclarativeBase):
@@ -62,3 +63,15 @@ engine = create_engine("sqlite:///Academy_db.db")
 
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
+
+
+with Session(engine) as session:
+    department1 = Departments(name="Architecture", financing=31000.0)
+    department2 = Departments(name="Architectural programming", financing=21000.0)
+    department3 = Departments(name="Atomation", financing=21500.0)
+    department4 = Departments(name="Computer Sciences", financing=19500.0)
+    department5 = Departments(name="Management organization", financing=23000.0)
+    department6 = Departments(name="Engineering", financing=11500.0)
+
+session.add_all([department1, department2, department3, department4, department5, department6])
+session.commit()
