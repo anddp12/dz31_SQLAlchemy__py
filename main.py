@@ -9,6 +9,7 @@ class Base(DeclarativeBase):
     pass
 
 
+# Creating a class Departments
 class Departments(Base):
     __tablename__ = "Departments"
 
@@ -20,6 +21,7 @@ class Departments(Base):
         return f"Departments(id={self.id!r}, name={self.name!r}, financing={self.financing!r})"
 
 
+# Creating a class Faculties
 class Faculties(Base):
     __tablename__ = "Faculties"
 
@@ -31,6 +33,8 @@ class Faculties(Base):
         return f"Faculties(id={self.id!r}, name={self.name!r}, dean={self.dean!r})"
 
 
+# Creating a class Groups
+Faculties
 class Groups(Base):
     __tablename__ = "Groups"
 
@@ -43,6 +47,7 @@ class Groups(Base):
         return f"Groups#(id={self.id!r}, name={self.name!r}, rating={self.rating!r}, rating={self.year!r})"
 
 
+# Creating a class Teachers
 class Teachers(Base):
     __tablename__ = "Teachers"
 
@@ -65,6 +70,7 @@ Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
 
+# Filling the tables of Departments
 with Session(engine) as session:
     department1 = Departments(name="Architecture", financing=31000.0)
     department2 = Departments(name="Architectural programming", financing=21000.0)
@@ -74,4 +80,14 @@ with Session(engine) as session:
     department6 = Departments(name="Engineering", financing=11500.0)
 
 session.add_all([department1, department2, department3, department4, department5, department6])
+session.commit()
+
+
+# Filling the tables of Faculties
+with Session(engine) as session:
+    faculty1 = Faculties(name="Architecture", dean="Miron Markevich")
+    faculty2 = Faculties(name="Information technologies", dean="Alexander Petrakov")
+    faculty3 = Faculties(name="Construction", dean="Viktor Skrypnyk")
+
+session.add_all([faculty1, faculty2, faculty3])
 session.commit()
