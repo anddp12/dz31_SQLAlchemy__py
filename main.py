@@ -91,3 +91,20 @@ with Session(engine) as session:
 
 session.add_all([faculty1, faculty2, faculty3])
 session.commit()
+
+
+# Filling the tables of Groups
+with Session(engine) as session:
+    group1 = Groups(name="Architecture_5", year=5, rating=2)
+    group2 = Groups(name="Engineering_5", year=5, rating=5)
+    group3 = Groups(name="Computer Sciences_4", year=4, rating=1)
+    group4 = Groups(name="Management organization_4", year=4, rating=4)
+    group5 = Groups(name="Engineering_4", year=4, rating=3)
+    group6 = Groups(name="Computer Sciences_3", year=3, rating=6)
+    group7 = Groups(name="Engineering_2", year=2, rating=7)
+    group8 = Groups(name="Atomation_2", year=2, rating=8)
+    group9 = Groups(name="Engineering_1", year=1, rating=9)
+    group10 = Groups(name="Architectural programming_1", year=1, rating=10)
+
+session.add_all([group1, group2, group3, group4, group5, group6, group7, group8, group9, group10])
+session.commit()
