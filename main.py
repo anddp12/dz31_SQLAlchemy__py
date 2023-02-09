@@ -1,3 +1,4 @@
+from ast import Del
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -21,6 +22,7 @@ class Department(Base):
     financing: Mapped[float] = mapped_column(default=0)
 
     faculty: Mapped["Faculty"] = relationship(back_populates="departments")
+    # teachers: Mapped[list["Teacher"]] = relationship(back_populates="department", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"Department(id={self.id!r}, name={self.name!r}, financing={self.financing!r})"
@@ -60,6 +62,7 @@ class Teacher(Base):
     __tablename__ = "Teacher"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
+    # id_department: Mapped[int] = mapped_column(ForeignKey("Department.id"))
     first_name: Mapped[str] = mapped_column()
     last_name: Mapped[str] = mapped_column()
     position: Mapped[str] = mapped_column()
@@ -70,6 +73,7 @@ class Teacher(Base):
     isProfessor: Mapped[int] = mapped_column(default=0)
 
     groups: Mapped[list["Group"]] = relationship(secondary="Group_Teacher", back_populates="teachers")
+    # department: Mapped["Department"] = relationship(back_populates="teachers")
 
     def __repr__(self) -> str:
         return f"Teacher#(id={self.id!r}, first_name={self.first_name!r}, last_name={self.last_name!r}, position={self.position!r}, employmentDate={self.employmentDate!r}, salary={self.salary!r}, premium={self.premium!r})"
