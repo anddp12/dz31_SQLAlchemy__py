@@ -14,10 +14,13 @@ class Base(DeclarativeBase):
 # Creating a class Departments
 class Department(Base):
     __tablename__ = "Department"
-
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+
+    id_faculty: Mapped[int] = mapped_column(ForeignKey("Faculty.id"))
     name: Mapped[str] = mapped_column(unique=True)
     financing: Mapped[float] = mapped_column(default=0)
+
+    faculty: Mapped["Faculty"] = relationship(back_populates="departments")
 
     def __repr__(self) -> str:
         return f"Department(id={self.id!r}, name={self.name!r}, financing={self.financing!r})"
@@ -26,10 +29,12 @@ class Department(Base):
 # Creating a class Faculty
 class Faculty(Base):
     __tablename__ = "Faculty"
-
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    
     name: Mapped[str] = mapped_column(unique=True)
     dean: Mapped[str] = mapped_column()
+
+    departments: Mapped[list["Department"]] = relationship(back_populates="faculty", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"Faculty(id={self.id!r}, name={self.name!r}, dean={self.dean!r})"
@@ -38,8 +43,8 @@ class Faculty(Base):
 # Creating a class Group
 class Group(Base):
     __tablename__ = "Group"
-
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+
     name: Mapped[str] = mapped_column(unique=True)
     year: Mapped[int] = mapped_column()
     rating: Mapped[int] = mapped_column()
@@ -53,8 +58,8 @@ class Group(Base):
 # Creating a class Teacher
 class Teacher(Base):
     __tablename__ = "Teacher"
-
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+
     first_name: Mapped[str] = mapped_column()
     last_name: Mapped[str] = mapped_column()
     position: Mapped[str] = mapped_column()
@@ -73,7 +78,6 @@ class Teacher(Base):
 # Creating a linking table Group_Teacher
 class Group_Teacher(Base):
     __tablename__ = "Group_Teacher"
-
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
     id_group: Mapped[int] = mapped_column(ForeignKey("Group.id"))
@@ -102,4 +106,18 @@ with Session(engine) as session:
 
     session.add_all(groups1)
     session.add_all((teacher1, teacher2, teacher3, teacher4, teacher5))
+    session.commit()
+
+# one to many
+with Session(engine) as session:
+    faculty1 = Faculty(name="Architecture", dean="Miron Markevich", departments=[])
+    faculty2 = Faculty(name="Information technologies", dean="Alexander Petrakov", departments=[])
+    faculty3 = Faculty(name="Construction", dean="Viktor Skrypnyk", departments=[])
+
+    session.add_all([faculty1, faculty2, faculty3])
+    session.commit()
+
+    faculty1.departments.append(Department(name="Architectural programming", financing=21000.0))
+    faculty2.departments.append(Department(name="Computer Sciences", financing=19500.0))
+    faculty3.departments.append(Department(name="Engineering", financing=11500.0))
     session.commit()
